@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dog_model.dart';
 import 'dog_card.dart';
+import 'dog_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -82,7 +83,26 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black87,
       ),
       body: Container(
-        child: DogCard(initialDoggos[nextDogIndex]),
+        // add a Box decoration
+        decoration: BoxDecoration(
+          //Box decoration takes a gradient
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stoips should increase from 0 to 1
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              Colors.indigo[800],
+              Colors.lightBlueAccent[700],
+              Colors.deepPurple[600],
+              Colors.indigo[400],
+            ],
+          ),
+        ),
+        child: Center(
+          child: DogList(initialDoggos),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: nextDog,
