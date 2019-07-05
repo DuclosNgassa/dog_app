@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dog_card.dart';
-import 'dog_model.dart';
+import 'package:dog_app/component/dog_card.dart';
+import 'package:dog_app/model/dog_model.dart';
 
 class DogList extends StatelessWidget {
   final List<Dog> doggos;
