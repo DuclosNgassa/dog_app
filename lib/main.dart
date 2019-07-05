@@ -3,6 +3,7 @@ import 'package:dog_app/model/dog_model.dart';
 import 'package:dog_app/component/dog_card.dart';
 import 'package:dog_app/component/dog_list.dart';
 import './component/custom_linear_gradient.dart';
+import './form/dog_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -82,6 +83,12 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         backgroundColor: Colors.black87,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _showNewDogForm,
+          ),
+        ],
       ),
       body: CustomLinearGradient(
         myChild: Center(
@@ -89,35 +96,25 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-/*
-      Container(
-        // add a Box decoration
-        decoration: BoxDecoration(
-          //Box decoration takes a gradient
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            // Add one stop for each color. Stoips should increase from 0 to 1
-            stops: [0.1, 0.5, 0.7, 0.9],
-            colors: [
-              Colors.indigo[800],
-              Colors.lightBlueAccent[700],
-              Colors.deepPurple[600],
-              Colors.indigo[400],
-            ],
-          ),
-        ),
-        child: Center(
-          child: DogList(initialDoggos),
-        ),
-      ),
-*/
       floatingActionButton: FloatingActionButton(
         onPressed: nextDog,
         tooltip: 'Increment',
         child: Icon(Icons.account_balance),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  Future _showNewDogForm() async {
+    Dog newDog = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return AddDogFormPage();
+        },
+      ),
+    );
+
+    if(newDog != null){
+      initialDoggos.add(newDog);
+    }
   }
 }
