@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dog_app/model/dog_model.dart';
 import 'package:dog_app/component/dog_card.dart';
 import 'package:dog_app/component/dog_list.dart';
+import './component/custom_linear_gradient.dart';
 
 void main() => runApp(MyApp());
 
@@ -82,7 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Colors.black87,
       ),
-      body: Container(
+      body: CustomLinearGradient(
+        myChild: Center(
+          child: DogList(initialDoggos),
+        ),
+      ),
+
+/*
+      Container(
         // add a Box decoration
         decoration: BoxDecoration(
           //Box decoration takes a gradient
@@ -104,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: DogList(initialDoggos),
         ),
       ),
+*/
       floatingActionButton: FloatingActionButton(
         onPressed: nextDog,
         tooltip: 'Increment',

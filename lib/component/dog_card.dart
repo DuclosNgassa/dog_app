@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dog_app/model/dog_model.dart';
 import 'package:http/http.dart' as http;
+import '../view/dog_detail_page.dart';
 
 class DogCard extends StatefulWidget {
   final Dog dog;
@@ -86,7 +87,10 @@ class _DogCardState extends State<DogCard> {
               ),
               Row(
                 children: <Widget>[
-                  Icon(Icons.star, color: Colors.white,),
+                  Icon(
+                    Icons.star,
+                    color: Colors.white,
+                  ),
                   Text(
                     ': ${widget.dog.rating} / 10',
                     style: TextStyle(color: Colors.white),
@@ -107,25 +111,39 @@ class _DogCardState extends State<DogCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
-      child: Container(
-        height: 115.0,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 50,
-              child: dogCard,
-            ),
-            Positioned(
-              top: 7.5,
-              child: dogImage,
-            )
-          ],
+    return InkWell(
+      onTap: showDogDetailPage,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 8.0,
         ),
+        child: Container(
+          height: 115.0,
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                left: 50.0,
+                child: dogCard,
+              ),
+              Positioned(
+                top: 7.5,
+                child: dogImage,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // This is the builder method that creates a new page
+  showDogDetailPage() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return DogDetailPage(dog);
+        },
       ),
     );
   }
