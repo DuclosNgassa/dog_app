@@ -92,7 +92,7 @@ class _DogCardState extends State<DogCard> {
                     color: Colors.white,
                   ),
                   Text(
-                    ': ${widget.dog.rating} / 10',
+                    ': ${widget.dog.rating} / 15',
                     style: TextStyle(color: Colors.white),
                   )
                 ],

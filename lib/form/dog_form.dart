@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../component/custom_linear_gradient.dart';
+import '../model/dog_model.dart';
 
 class AddDogFormPage extends StatefulWidget {
   @override
@@ -7,6 +8,25 @@ class AddDogFormPage extends StatefulWidget {
 }
 
 class _AddDogFormPageState extends State<AddDogFormPage> {
+  // One TextEditingController for each form input:
+  TextEditingController nameController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  void submitPup(context) {
+    if (nameController.text.isEmpty) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Pups neeed names!'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    } else{
+      var newDog = Dog(nameController.text, locationController.text, descriptionController.text);
+      Navigator.of(context).pop(newDog);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // new page needs scaffording!
@@ -20,8 +40,18 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(
+                    top: 20.0, right: 30.0, bottom: 8.0, left: 30.0),
                 child: TextField(
+                  // Tell your textfield which controller it owns
+                  controller: nameController,
+                  // Every single time the text changes in a
+                  // TextField, this onChanged callback is called
+                  // and it passes in the value.
+                  //
+                  // Set the text of your controller to
+                  // to the next value.
+                  onChanged: (v) => nameController.text = v,
                   decoration: InputDecoration(
                     labelText: 'Name the Pup',
                     labelStyle: TextStyle(color: Colors.white),
@@ -29,8 +59,11 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(
+                    top: 8.0, right: 30.0, bottom: 8.0, left: 30.0),
                 child: TextField(
+                  controller: locationController,
+                  onChanged: (v) => locationController.text = v,
                   decoration: InputDecoration(
                     labelText: "Pup's location",
                     labelStyle: TextStyle(color: Colors.white),
@@ -38,8 +71,11 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(
+                    top: 8.0, right: 30.0, bottom: 8.0, left: 30.0),
                 child: TextField(
+                  controller: descriptionController,
+                  onChanged: (v) => descriptionController.text = v,
                   decoration: InputDecoration(
                     labelText: 'All about the pup',
                     labelStyle: TextStyle(color: Colors.white),
@@ -58,9 +94,12 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
                   builder: (context) {
                     //The basic Material Design action button.
                     return RaisedButton(
-                      onPressed: () => print('PRESSED'),
+                      onPressed: () => submitPup(context),
                       color: Colors.deepPurple,
-                      child: Text('Submit Pup'),
+                      child: Text(
+                        'Submit Pup',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     );
                   },
                 ),

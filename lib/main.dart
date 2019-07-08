@@ -60,15 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int nextDogIndex = 0;
 
-  void nextDog() {
-    setState(() {
-      nextDogIndex++;
-      if (nextDogIndex == 5) {
-        nextDogIndex = 0;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -97,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: nextDog,
+        onPressed: _showNewDogForm,
         tooltip: 'Increment',
-        child: Icon(Icons.account_balance),
+        child: Icon(Icons.pets),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
