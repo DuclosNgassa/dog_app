@@ -18,6 +18,7 @@ class _DogCardState extends State<DogCard> {
 
   _DogCardState(this.dog);
 
+/*
   Widget get dogImage {
     return renderUrl == null
         ? Container()
@@ -32,6 +33,65 @@ class _DogCardState extends State<DogCard> {
               ),
             ),
           );
+  }
+*/
+
+  Widget get dogImage {
+    var dogAvatar;
+    if (renderUrl == null) {
+      dogAvatar = Hero(
+        child: Container(),
+        tag: dog,
+      );
+    } else {
+      dogAvatar = Hero(
+        tag: dog,
+        child: Container(
+          height: 100.0,
+          width: 100.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: NetworkImage(renderUrl),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Placeholder is a static container the same size as the dog image
+    var placeholder = Container(
+      height: 100.0,
+      width: 100.0,
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            colors: [Colors.black54, Colors.black, Colors.blueGrey[600]],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )),
+      alignment: Alignment.center,
+      child: Text(
+        'DOGGO',
+        textAlign: TextAlign.center,
+      ),
+    );
+
+    // This is an animated widget build into Flutter
+    return AnimatedCrossFade(
+      // You pass it the starting widget and the ending widget.
+      firstChild: placeholder,
+      secondChild: dogAvatar,
+      //Then, you pass it a ternary that should be passed on your state
+      //If the renderUrl is null tell the widget to use the placeholder,
+      //otherwise use the dogAvatar.
+      crossFadeState: renderUrl == null
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+      //Finally, pass in the amount of time the fade should take.
+      duration: Duration(milliseconds: 5000),
+    );
   }
 
 // IRL, we'd want the Dog class itself to get the image
